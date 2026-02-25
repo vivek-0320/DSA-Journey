@@ -29,7 +29,7 @@ class FreqStack {
         freqMap.put(val, freq);
         maxFreq = Math.max(maxFreq, freq);
         
-        stackMap.computeIfAbsent(freq, _ -> new ArrayDeque<>()).push(val);
+        stackMap.computeIfAbsent(freq, k -> new ArrayDeque<>()).push(val);
     }
 
     public int pop() {
