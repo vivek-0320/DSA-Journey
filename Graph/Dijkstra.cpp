@@ -30,7 +30,7 @@ public:
                 int v = edge.first;
                 int w = edge.second;
                 
-                if (dist[u] + w < dist[v]) {
+                if (dist[u] + w < dist[v]) { // Relax
                     dist[v] = dist[u] + w;
                     pq.push({dist[v], v}); // Push {distance, node}
                 }
