@@ -1,7 +1,7 @@
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-public class 132Pattern {
+public class Pattern132 {
     public boolean find132pattern(int[] nums) {
         if (nums.length < 3)
             return false;
