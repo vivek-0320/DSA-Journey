@@ -27,8 +27,7 @@ public:
             if (d > dist[u]) continue;
 
             for (auto& edge : graph[u]) {
-                int v = edge.first;
-                int w = edge.second;
+                auto [v, w] = edge;
                 
                 if (dist[u] + w < dist[v]) { // Relax
                     dist[v] = dist[u] + w;
