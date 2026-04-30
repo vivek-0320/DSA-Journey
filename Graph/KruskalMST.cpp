@@ -64,7 +64,7 @@ public:
         int n = points.size();
         vector<Edge> edges;
 
-        // 2. Build all possible edges (Every point to every other point)
+        // Build all possible edges (Every point to every other point)
         for (int i = 0; i < n; i++)
         {
             for (int j = i + 1; j < n; j++)
@@ -74,10 +74,10 @@ public:
             }
         }
 
-        // 3. Kruskal's Step 1: Sort edges by weight (cheapest first)
+        // Kruskal's Step 1: Sort edges by weight (cheapest first)
         sort(edges.begin(), edges.end());
 
-        // 4. Kruskal's Step 2: Use DSU to pick edges without forming cycles
+        // Kruskal's Step 2: Use DSU to pick edges without forming cycles
         DSU dsu(n);
         int total_cost = 0;
         int edges_used = 0;
