@@ -31,5 +31,6 @@ public class MazeProblems {
         MazeProblems ob = new MazeProblems();
         int s = ob.maximumWeight(ar, n);
         System.out.println("Maximum Weight is of node : " + s);
+        sc.close();
     }
 }
