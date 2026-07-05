@@ -1,5 +1,11 @@
 import java.util.*;
 
+// This is solved using multiSource BFS  + modified Dijkstra to find Path.
+// First use BFS to make a new grid of safenessFactor by processing the thieves layer by layer.
+// then use dijkstra which uses max heap, to always choose maxSafety factor for path , 
+// and also keep track of the globalMin safety factor encountered so far for answer.
+// 
+
 public class SafenessFactor {
     public int maximumSafenessFactor(List<List<Integer>> grid) {
         int r = grid.size();

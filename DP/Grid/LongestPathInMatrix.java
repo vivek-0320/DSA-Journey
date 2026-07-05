@@ -1,5 +1,10 @@
 public class LongestPathInMatrix {
 
+
+    // This problem is a mix of DFS + Memoization. It is solved using top down DP.
+    // Start a dfs call from each cell of matrix and build a path only when adjacent cell is in increasing order.
+    // Maintain local and global maxLength of path to keep track of longest path length.
+
     private static final int[][] DIRECTIONS = {{0,-1},{0,1},{1,0},{-1,0}};
     int r,c;
 

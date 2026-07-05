@@ -1,5 +1,12 @@
 import java.util.*;
 
+// This is solved using Binary Search on Dijkstra Algorithm
+// Low = -1, High = largest edge .
+// In isPossible function, we ignore all edges < mid, because we are finding the largest minEdge of that path.
+// Use dijkstra algorithm to find the shortest path from 0 to Node N-1, and if totalCost <= k, then it is valid, 
+// hence now search in upper half, 
+// else the totalCost exceeded due to larger edges, search in lower half.
+
 public class NetworkRecoverPathways {
 
     public boolean isPossible(int mid, List<List<int[]>> graph, boolean[] online, long k) {

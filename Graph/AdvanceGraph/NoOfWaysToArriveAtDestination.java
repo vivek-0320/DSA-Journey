@@ -1,6 +1,83 @@
 import java.util.*;
 
 class NoOfWaysToArriveAtDestination {
+
+    // This approach uses only Dijkstra Algorithm to count ways of the shortest path.
+    // The whole approach relies on : if we found a new path then(newPath < shortestPath) , ways[v] = ways[u]
+    // else if (newPath == shortestPath) , ways[v] += ways[u]
+
+    public int countPaths2(int n, int[][] roads) {
+        final int MOD = 1_000_000_007;
+
+        // Build adjacency list
+        List<List<int[]>> graph = new ArrayList<>();
+        for (int i = 0; i < n; i++)
+            graph.add(new ArrayList<>());
+
+        for (int[] road : roads) {
+            int u = road[0];
+            int v = road[1];
+            int time = road[2];
+
+            graph.get(u).add(new int[] { v, time });
+            graph.get(v).add(new int[] { u, time });
+        }
+
+        long[] dist = new long[n];
+        Arrays.fill(dist, Long.MAX_VALUE);
+
+        int[] ways = new int[n];
+
+        PriorityQueue<long[]> pq = new PriorityQueue<>((a, b) -> Long.compare(a[0], b[0]));
+
+        dist[0] = 0;
+        ways[0] = 1;
+        // {current_time, node}
+        pq.offer(new long[] { 0, 0 });
+
+        while (!pq.isEmpty()) {
+            long[] curr = pq.poll();
+
+            long currTime = curr[0];
+            int node = (int) curr[1];
+
+            // Ignore outdated entries
+            if (currTime > dist[node]) {
+                continue;
+            }
+
+            for (int[] edge : graph.get(node)) {
+                int nbr = edge[0];
+                int edgeTime = edge[1];
+
+                // Found a shorter path
+                if (currTime + edgeTime < dist[nbr]) {
+                    dist[nbr] = currTime + edgeTime;
+                    ways[nbr] = ways[node];
+                    pq.offer(new long[] { dist[nbr], nbr });
+                }
+
+                // Found another shortest path
+                else if (currTime + edgeTime == dist[nbr]) {
+                    ways[nbr] = (ways[nbr] + ways[node]) % MOD;
+                }
+            }
+        }
+
+        return ways[n - 1];
+    }
+
+    // This Approach uses Dijkstra for finding shortest path, and Topo Sort + DP on
+    // DAG for finding no ways of that path.
+    // For Topo Sort + DP, the most essential rule is that , once a node has
+    // completed its number of ways then
+    // only it can transfer its details to other nodes.
+    // For this we count inDegree of nodes and process them in increasing order
+    // which makes order of process safe.
+    // For each node u from queue, decrease the indegree of its neighbours node v
+    // and dp[v] += dp[u].
+    // When inDegree[v] == 0, push it into queue.
+
     public int countPaths(int n, int[][] roads) {
         List<List<int[]>> graph = new ArrayList<>();
         for (int i = 0; i < n; i++)

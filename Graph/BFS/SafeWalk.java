@@ -1,5 +1,13 @@
 import java.util.*;
 
+// This is an example of State Space Graph. We need to keep track of our position wrt to health.
+// this creates multiple option to reach a cell with different health.
+// we use 01 BFS + vis[row][col][health] to keep track of each state.
+// the player travels iff the health remains above 0.
+// if the cost of travel is 0, then addFirst the new State
+// else addLast the new State
+
+
 public class SafeWalk {
     public boolean findSafeWalk(List<List<Integer>> grid, int health) {
         int r = grid.size();

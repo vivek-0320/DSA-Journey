@@ -1,6 +1,11 @@
 import java.util.ArrayDeque;
 import java.util.Deque;
 
+// Use Topo Sort to remove all edges that do not contribute to a cycle.
+// Then pick a starting node which is not visited by topo sort and then travel all the way
+// until it comes back to same starting node, forming a cycle. record the length of the travel to find maxLength.
+
+
 public class LongestCycle {
     public int longestCycle(int[] edges) {
         int n = edges.length;
@@ -47,6 +52,10 @@ public class LongestCycle {
         }
         return maxLen;
     }
+
+    // While visiting each node,give a time arrived to node. Then start travelling from it until we hit a cycle.
+    // The length of this cycle will be timer - time of starting node.
+
 
     public int longestCycle2(int[] edges) {
         int n = edges.length;

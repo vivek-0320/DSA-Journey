@@ -2,6 +2,14 @@ import java.util.Arrays;
 
 public class KthSmallestPairDistance {
 
+    // In this we need to find the K-th pair whose difference when sorted is Kth rank.
+    // First we sort the array to calculate the counts of pair in less time complexity.
+    // We set low = -1, and high = highest - lowest number.
+    // Mid acts as our guess, and CountPairs counts how many pairs exist with difference MID or less?
+    // if CountPairs >= K, then we need to search in lower half
+    // else we need to search in upper half.
+
+
     public boolean countPairs(int[] nums, int mid, int k) {
         int count = 0;
         int left = 0;
