@@ -1,5 +1,16 @@
 import java.util.*;
 
+
+// The maximum water trapped at any spot is bounded by the shorter of the tallest walls to its 
+// left and right minus the current ground height: min(left_max, right_max) - height[i].
+//
+// DP Approach: Precomputes every spot's left and right limits by running two initial passes (left-to-right and right-to-left)
+// storing values in arrays.
+//
+// Two-Pointer Approach: Using two pointers from the outside edges inward 
+// because the absolute bottleneck is always dictated by the smaller of the two outer maximums, 
+// you can confidently calculate water and move the smaller pointer forward.
+
 public class TrappingRainwater {
     public static int trap(int[] height) {
         int water = 0;
@@ -49,25 +60,48 @@ public class TrappingRainwater {
         return water;
     }
 
+    public int trapDP(int[] height) {
+        if (height == null || height.length == 0)
+            return 0;
+
+        int n = height.length;
+        int[] leftMax = new int[n];
+        int[] rightMax = new int[n];
+
+        // Fill leftMax array
+        leftMax[0] = height[0];
+        for (int i = 1; i < n; i++) {
+            leftMax[i] = Math.max(height[i], leftMax[i - 1]);
+        }
+
+        // Fill rightMax array
+        rightMax[n - 1] = height[n - 1];
+        for (int i = n - 2; i >= 0; i--) {
+            rightMax[i] = Math.max(height[i], rightMax[i + 1]);
+        }
+
+        // Calculate accumulated water
+        int water = 0;
+        for (int i = 0; i < n; i++) {
+            water += Math.min(leftMax[i], rightMax[i]) - height[i];
+        }
+
+        return water;
+    }
+
     public static int trap3(int[] height) {
         int left = 0, right = height.length - 1;
-        int leftMax = 0, rightMax = 0, water = 0;
+        int leftMax = height[left], rightMax = height[right], water = 0;
 
         while (left < right) {
-            if (height[left] <= height[right]) {
-                if (height[left] < leftMax) {
-                    water += leftMax - height[left];
-                } else {
-                    leftMax = height[left];
-                }
+            if (height[left] < height[right]) {
                 left++;
+                leftMax = Math.max(leftMax, height[left]);
+                water += (leftMax - height[left]);
             } else {
-                if (height[right] < rightMax) {
-                    water += rightMax - height[right];
-                } else {
-                    rightMax = height[right];
-                }
                 right--;
+                rightMax = Math.max(rightMax, height[right]);
+                water += (rightMax - height[right]);
             }
         }
         return water;

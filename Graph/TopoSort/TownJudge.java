@@ -1,4 +1,3 @@
-package TopoSort;
 import java.util.*;
 
 public class TownJudge {

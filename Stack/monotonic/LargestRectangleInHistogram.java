@@ -87,6 +87,13 @@ public class LargestRectangleInHistogram {
         return area;
     }
 
+    // To find the largest rectangle, we use a monotonic increasing stack to track bars that are waiting for their right boundary. 
+    // As long as bars get taller, push their index onto the stack. When you encounter a shorter bar, it acts as the right boundary
+    // for the taller bars currently on the stack. Pop the taller bars one by one, calculate their area using their height 
+    // and the width between the current index (right boundary) and the new top of the stack (left boundary), 
+    // and update the maximum area. Finally, use a dummy height of 0 at the end of the array to 
+    // flush and calculate any remaining bars in the stack.
+
     public int largestRectangleArea4(int[] heights) {
         int n = heights.length;
         Deque<Integer> stack = new ArrayDeque<>();

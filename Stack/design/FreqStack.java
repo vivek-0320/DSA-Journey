@@ -2,6 +2,14 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;
 
+// The solution uses two maps and one maxFreq variable.
+// One map counts the frequency of all elements and updates maxfreq variable.
+// Second map is a map for freq(key) -> stack of that frequency(value)
+// Whener an element is pushed , then its frequency is updates and maxFreq is updated, then
+// the element is pushed on the stack of its current frequency.
+// Whenever an element is popped, it is removed from its current freq stack and its frequency is decreased. 
+// If the maxFreq stack gets empty, then maxFreq is also
+
 class FreqStack {
     private int maxFreq;
     HashMap<Integer, Integer> freqMap;
