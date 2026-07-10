@@ -1,5 +1,14 @@
 import java.util.Arrays;
 
+// The Two Runners: Track two timelines simultaneously:
+//  j (0 replacements allowed, strict matches only) and i (1 replacement allowed, flexible).
+// The Cheat Code: For each character in t, runner i can either match naturally, 
+// or use its one replacement to jump ahead of j's old position using i = max(i, j + 1).
+// The Golden Rule: You must calculate i's next move before you let j move. 
+// This guarantees the current character in t is consumed exactly once per turn.
+// The Finish Line: Runner j only moves on an exact match; 
+// if either runner successfully reaches the end of string s, return true!
+
 public class SubsequenceAfterOneReplacement {
     public boolean canMakeSubsequence(String s, String t) {
         int m = s.length();
